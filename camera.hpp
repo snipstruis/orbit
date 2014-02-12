@@ -5,14 +5,15 @@
 #include <glm/gtc/quaternion.hpp>
 
 class Transform{
+public:
+	shared_ptr<Transform> parent;
 	vec3 scale;
 	quat orientation;
 	vec3 position;
 public:
-	Transform():scale(vec3()),orientation(quat()),position(vec3(0.f)){}
-	Transform(vec3 startpos) :scale(vec3(1.f)),
-		orientation(quat()),
-		position(startpos){}
+	Transform(shared_ptr<Transform> t):parent(t),scale(vec3(1.f)),orientation(quat()),position(vec3(0.f)){}
+	Transform(vec3 startpos) :parent(nullptr),scale(vec3(1.f)),
+		orientation(quat()),position(startpos){}
 public:
 	void translate(vec3 pos){
 		position += pos;
@@ -21,7 +22,8 @@ public:
 		if(ammount!=0) orientation=glm::rotate(orientation,ammount,axis);
 	}
 	mat4 getMatrix()const{
-		return glm::scale(mat4(),scale)
+		return (parent?parent->getMatrix():mat4())
+			 * glm::scale(mat4(),scale)
 			 * mat4_cast(orientation)
 			 * glm::translate(mat4(),position);
 	}

@@ -16,6 +16,9 @@
 using namespace std;
 using namespace glm;
 
+// paths relative to executable
+const string shader_path = "../Orbit";
+
 #include "utils.hpp"
 #include "uniform.hpp"
 #include "glfwcallbacks.hpp"
@@ -172,7 +175,7 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(vec3(0,0,1)),
+			}),Transform(make_shared<Transform>(vec3(0,0,1))),
 			   vec3(50/255.f,95/255.f,180/255.f)
 		)
 	);
@@ -194,7 +197,7 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(vec3(-5,0,1)),
+			}),Transform(make_shared<Transform>(vec3(-5,0,1))),
 			   vec3(50/255.f,00/255.f,180/255.f)
 		)
 	);
@@ -216,7 +219,7 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(vec3(5,0,1)),
+			}),Transform(make_shared<Transform>(vec3(5,0,1))),
 			   vec3(50/255.f,20/255.f,80/255.f)
 		)
 	);

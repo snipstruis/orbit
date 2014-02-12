@@ -43,18 +43,24 @@ public:
 
 class SimpleShader:public Shader{
 	Uniform<vec3> color;
-
+public:
+	vector<SimpleObject> objects;
 public:
 	SimpleShader():
-		Shader(make_shader(readFile("../orbit/simple.vert"),
-						   readFile("../orbit/simple.frag"))),
+		Shader(make_shader(readFile(shader_path+"/simple.vert"),
+						   readFile(shader_path+"/simple.frag"))),
 			   color(Uniform<vec3>(program,"color") ){}
-	vector<SimpleObject> objects;
 	void setCamera(Camera cam){
 		view = cam.transform.getMatrix();
 		projection = cam.getProjection();
 	}
 	void draw(){
+		// rotate objects for demonstration
+		objects.at(1).transform.rotate(vec3(0,0,1),0.1f);
+		objects.at(2).transform.rotate(vec3(0,0,1),0.2f);
+		objects.at(3).transform.rotate(vec3(0,0,1),0.4f);
+
+		// draw objects
 		for(const SimpleObject &o:objects){
 			color=o.color;
 			model=o.transform.getMatrix();

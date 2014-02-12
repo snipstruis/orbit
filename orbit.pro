@@ -16,12 +16,12 @@ HEADERS += \
 	glfwadapter.hpp \
 	utils.hpp \
 	uniform.hpp \
-    shader.hpp \
-    simple.hpp \
-    camera.hpp \
-    input.hpp
+	shader.hpp \
+	simple.hpp \
+	camera.hpp \
+	input.hpp
 
 OTHER_FILES += \
-    simple.frag \
-    simple.vert
+	simple.frag \
+	simple.vert
 
