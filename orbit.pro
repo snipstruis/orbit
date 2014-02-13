@@ -19,7 +19,9 @@ HEADERS += \
 	shader.hpp \
 	simple.hpp \
 	camera.hpp \
-	input.hpp
+	input.hpp \
+    transform.h \
+    graphics.h
 
 OTHER_FILES += \
 	simple.frag \

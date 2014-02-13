@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
-#include <boost/any.hpp>
 
 #include <iostream>
 #include <array>
@@ -18,37 +17,23 @@ using namespace glm;
 
 // paths relative to executable
 const string shader_path = "../Orbit";
+const string obj_path    = "../Orbit";
 
 #include "utils.hpp"
 #include "uniform.hpp"
 #include "glfwcallbacks.hpp"
 #include "glfwadapter.hpp"
+
+#include "transform.h"
 #include "input.hpp"
 #include "shader.hpp"
 #include "simple.hpp"
 #include "camera.hpp"
-
-class Graphics{
-	SimpleShader  simple;
-	GLFWwindow*   window;
-	Camera        camera;
-	Input		  input;
-public:
-	Graphics(GLFWwindow* w,SimpleShader s,Camera c,Input in)
-		:window(w),simple(s),camera(c),input(in){}
-	void fixedTick(){
-		input.moveCameraInput().execute(camera);
-		simple.setCamera(camera);
-	}
-	void freeStep(){
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		simple.draw();
-		glfwSwapBuffers(window);
-	}
-};
+#include "graphics.h"
 
 using Clock = chrono::high_resolution_clock;
 
+// holds gameloop, will manage threads in future
 class TaskManager{
 	bool running;
 	chrono::microseconds ticktime = chrono::microseconds(1000000/30);
@@ -139,7 +124,13 @@ int main(){
 		<<"a:     go left"<<endl
 		<<"d:     go right"<<endl
 		<<"shift: go up"<<endl
-		<<"ctrl:  go down"<<endl;
+		<<"ctrl:  go down"<<endl
+		<<"q:     pan left"<<endl
+		<<"e:     pan right"<<endl
+		<<"up:    tilt up"<<endl
+		<<"down:  tilt down"<<endl
+		<<"z:     roll clockwise"<<endl
+		<<"x:     roll counter-clockwise"<<endl;
 
 	SimpleShader simple;
 
@@ -175,7 +166,7 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(make_shared<Transform>(vec3(0,0,1))),
+			}),Transform(vec3(0,0,1)),
 			   vec3(50/255.f,95/255.f,180/255.f)
 		)
 	);
@@ -197,7 +188,7 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(make_shared<Transform>(vec3(-5,0,1))),
+			}),Transform(vec3(-5,0,1)),
 			   vec3(50/255.f,00/255.f,180/255.f)
 		)
 	);
@@ -219,13 +210,13 @@ int main(){
 				 4, 0, 3, 3, 7, 4,
 				 0, 1, 5, 5, 4, 0,
 				 1, 5, 6, 6, 2, 1
-			}),Transform(make_shared<Transform>(vec3(5,0,1))),
+			}),Transform(vec3(5,0,1)),
 			   vec3(50/255.f,20/255.f,80/255.f)
 		)
 	);
 
 	// create camera
-	Transform camera_transform(vec3(0.f,10.f,-2.8f));
+	Transform camera_transform(vec3(0.f, 0.f,-10.f));
 	camera_transform.rotate(vec3(1.f,0.f,0.f),-90.f); // rotate so you look along +y axis
 	Camera camera(camera_transform,60.f,screensize.x/float(screensize.y));
 
