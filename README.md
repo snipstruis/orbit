@@ -8,17 +8,26 @@ This is a personal and educational project of mine, so I will not accept pull re
 how to compile manually for linux
 =====
 
-step 1: download dependencies
-OpenGL 3.1+ - the latest version of [Mesa 3D](mesa3d.org) supports software emulation of OpenGL 3.1 regardless of drivers.
-[glfw](http://www.glfw.org/)
-[glew] (http://glew.sourceforge.net/)
+*step 1: download dependencies*
+  * OpenGL ≥3.1 - Update graphics drivers or download [mesa ≥10.0](mesa3d.org) for software emulation.
+  * [glfw](glfw.org)
+  * [glew] (glew.sourceforge.net)
 
-step 2: clone 
-    git clone https://github.com/vondel/orbit
+*step 2: clone*
 
-step 3: compile
+```
+git clone https://github.com/vondel/orbit
+```
+
+*step 3: compile*
+
 go to the 'orbit' folder and run
-    clang++ -o orbit -std=c++11 -g -Wall -W -lglfw -lGL -lGLEW -lm  src/main.cpp
+```
+clang++ -o orbit -std=c++11 -g -Wall -W -lglfw -lGL -lGLEW -lm  src/main.cpp
+```
 
-step 4: run
-    ./orbit
+*step 4: run*
+
+```
+./orbit
+```
