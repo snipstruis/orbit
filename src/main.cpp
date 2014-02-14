@@ -118,32 +118,35 @@ int main(){
 	glCullFace(GL_FRONT);
 
 	cout<<"keybindings:"<<endl
-		<<"w:     go forward"<<endl
-		<<"s:     go backward"<<endl
-		<<"a:     go left"<<endl
-		<<"d:     go right"<<endl
-		<<"shift: go up"<<endl
-		<<"ctrl:  go down"<<endl
-		<<"q:     pan left"<<endl
-		<<"e:     pan right"<<endl
-		<<"up:    tilt up"<<endl
-		<<"down:  tilt down"<<endl
-		<<"z:     roll clockwise"<<endl
-		<<"x:     roll counter-clockwise"<<endl;
+		<<"w:     move forward  | q:     roll counter-clockwise"<<endl
+		<<"s:     move backward | e:     roll clockwise"<<endl
+		<<"a:     move left     | up:    tilt up"<<endl
+		<<"d:     move right    | down:  tilt down"<<endl
+		<<"shift: move up       | left:  pan left"<<endl
+		<<"ctrl:  move down     | right: pan right"<<endl;
 
 	SimpleShader simple;
 
 	// way to create objects until I implement an OBJ-file loader
 	simple.objects.push_back(
-		SimpleObject( // ground plane
+		SimpleObject( // ground box
 			vector<GLfloat>({
-				-10.0f,	-10.0f,	 0.0f,
-				 10.0f,	-10.0f,	 0.0f,
-				 10.0f,	 10.0f,	 0.0f,
-				-10.0f,	 10.0f,	 0.0f,
+				  -10.0f,	-10.0f,	 0.1f,
+				   10.0f,	-10.0f,	 0.1f,
+				   10.0f,	 10.0f,	 0.1f,
+				  -10.0f,	 10.0f,	 0.1f,
+				  -10.0f,	-10.0f,	-0.1f,
+				   10.0f,	-10.0f,	-0.1f,
+				   10.0f,	 10.0f,	-0.1f,
+				  -10.0f,	 10.0f,	-0.1f
 			}),vector<GLushort> ({
-				 0, 1, 2, 2, 3, 0
-			}),Transform(vec3(0,0,0)),
+				 0, 1, 2, 2, 3, 0,
+				 3, 2, 6, 6, 7, 3,
+				 7, 6, 5, 5, 4, 7,
+				 4, 0, 3, 3, 7, 4,
+				 0, 1, 5, 5, 4, 0,
+				 1, 5, 6, 6, 2, 1
+			}),Transform(vec3(0.f,0.f,-0.1f)),
 			vec3(20/255.f,30/255.f,20/255.f)
 		)
 	);
@@ -218,7 +221,7 @@ int main(){
 	Transform camera_transform;
 	camera_transform.origin = vec3(0,10.f,-2.8f);
 	camera_transform.rotate(-90.f,vec3(1.f,0.f,0.f)); // rotate so you look along +y axis
-	Camera camera(camera_transform,80.f,screensize.x/float(screensize.y));
+	Camera camera(camera_transform,60.f,screensize.x/float(screensize.y));
 
 	// connect components to taskmanager and run it
 	Input input(window);

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "input.hpp"
+
 class Graphics{
 	SimpleShader  simple;
 	GLFWwindow*   window;
