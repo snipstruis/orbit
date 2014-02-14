@@ -24,12 +24,12 @@ const string obj_path    = "../Orbit";
 #include "glfwcallbacks.hpp"
 #include "glfwadapter.hpp"
 
-#include "transform.h"
+#include "transform.hpp"
 #include "input.hpp"
 #include "shader.hpp"
 #include "simple.hpp"
 #include "camera.hpp"
-#include "graphics.h"
+#include "graphics.hpp"
 
 using Clock = chrono::high_resolution_clock;
 
@@ -149,28 +149,6 @@ int main(){
 		)
 	);
 	simple.objects.push_back(
-		SimpleObject( // middle box (pale blue)
-			vector<GLfloat>({
-				  -1.0f,	-1.0f,	 1.0f,
-				   1.0f,	-1.0f,	 1.0f,
-				   1.0f,	 1.0f,	 1.0f,
-				  -1.0f,	 1.0f,	 1.0f,
-				  -1.0f,	-1.0f,	-1.0f,
-				   1.0f,	-1.0f,	-1.0f,
-				   1.0f,	 1.0f,	-1.0f,
-				  -1.0f,	 1.0f,	-1.0f
-			}),vector<GLushort> ({
-				 0, 1, 2, 2, 3, 0,
-				 3, 2, 6, 6, 7, 3,
-				 7, 6, 5, 5, 4, 7,
-				 4, 0, 3, 3, 7, 4,
-				 0, 1, 5, 5, 4, 0,
-				 1, 5, 6, 6, 2, 1
-			}),Transform(vec3(0,0,1)),
-			   vec3(50/255.f,95/255.f,180/255.f)
-		)
-	);
-	simple.objects.push_back(
 		SimpleObject( // left box (dark blue)
 			vector<GLfloat>({
 				  -1.0f,	-1.0f,	 1.0f,
@@ -190,6 +168,28 @@ int main(){
 				 1, 5, 6, 6, 2, 1
 			}),Transform(vec3(-5,0,1)),
 			   vec3(50/255.f,00/255.f,180/255.f)
+		)
+	);
+	simple.objects.push_back(
+		SimpleObject( // middle box (pale blue)
+			vector<GLfloat>({
+				  -1.0f,	-1.0f,	 1.0f,
+				   1.0f,	-1.0f,	 1.0f,
+				   1.0f,	 1.0f,	 1.0f,
+				  -1.0f,	 1.0f,	 1.0f,
+				  -1.0f,	-1.0f,	-1.0f,
+				   1.0f,	-1.0f,	-1.0f,
+				   1.0f,	 1.0f,	-1.0f,
+				  -1.0f,	 1.0f,	-1.0f
+			}),vector<GLushort> ({
+				 0, 1, 2, 2, 3, 0,
+				 3, 2, 6, 6, 7, 3,
+				 7, 6, 5, 5, 4, 7,
+				 4, 0, 3, 3, 7, 4,
+				 0, 1, 5, 5, 4, 0,
+				 1, 5, 6, 6, 2, 1
+			}),Transform(vec3(0,0,1)),
+			   vec3(50/255.f,95/255.f,180/255.f)
 		)
 	);
 	simple.objects.push_back(
@@ -216,9 +216,10 @@ int main(){
 	);
 
 	// create camera
-	Transform camera_transform(vec3(0.f, 0.f,-10.f));
-	camera_transform.rotate(vec3(1.f,0.f,0.f),-90.f); // rotate so you look along +y axis
-	Camera camera(camera_transform,60.f,screensize.x/float(screensize.y));
+	Transform camera_transform;
+	camera_transform.origin = vec3(0,10.f,-2.8f);
+	camera_transform.rotate(-90.f,vec3(1.f,0.f,0.f)); // rotate so you look along +y axis
+	Camera camera(camera_transform,80.f,screensize.x/float(screensize.y));
 
 	// connect components to taskmanager and run it
 	Input input(window);

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "camera.hpp"
 
 void shaderSource(GLuint shader,string src){

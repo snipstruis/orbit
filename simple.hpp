@@ -1,4 +1,5 @@
 #pragma once
+
 #include "shader.hpp"
 #include <istream>
 
@@ -56,9 +57,9 @@ public:
 	}
 	void draw(){
 		// rotate objects for demonstration
-		objects.at(1).transform.rotate(vec3(0,0,1),0.1f);
-		objects.at(2).transform.rotate(vec3(0,0,1),0.2f);
-		objects.at(3).transform.rotate(vec3(0,0,1),0.4f);
+		objects.at(1).transform.rotate(0.1f,vec3(0,0,1));
+		objects.at(2).transform.rotate(0.2f,vec3(0,0,1));
+		objects.at(3).transform.rotate(0.4f,vec3(0,0,1));
 
 		// draw objects
 		for(const SimpleObject &o:objects){

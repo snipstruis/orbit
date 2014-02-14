@@ -1,6 +1,5 @@
 #pragma once
 
-
 class Camera{
 public:
 	Camera(Transform transform_, float fov_y, float aspect, float near=0.1f, float far=1000.f)

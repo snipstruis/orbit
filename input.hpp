@@ -1,5 +1,7 @@
 #pragma once
+
 #include "camera.hpp"
+#include <glm/glm.hpp>
 
 template<class T>
 class Command{
@@ -9,16 +11,15 @@ public:
 	virtual void execute(T&)=0;
 };
 
-class MoveCameraCommand:public Command<Camera>{
-	vec3  translation;
-	vec3  rotationAxis;
-	float rotationAmmount;
+class MoveCameraCommand:public Command<Transform>{
+	const vec3  translation;//(x,y,z)
+	const vec3  rotation;   //(pan,tilt,roll)
 public:
-	MoveCameraCommand(vec3 trans, vec3 axis, float ammount)
-		:translation(trans),rotationAxis(axis),rotationAmmount(ammount){}
-	void execute(Camera& cam){
-		cam.transform.rotate(rotationAxis,rotationAmmount);
-		cam.transform.origin -= translation*cam.transform.orientation;
+	MoveCameraCommand(vec3 trans, vec3 rot)
+		:translation(trans),rotation(rot){}
+	void execute(Transform& t){
+		t.orientation = quat(rotation) * t.orientation;
+		t.origin     -= translation    * t.orientation;
 	}
 };
 
@@ -46,6 +47,7 @@ public:
 		return glfwWindowShouldClose(window);
 	}
 	MoveCameraCommand moveCameraInput(){
+		//translations (x,y,z)
 		vec3 position = vec3(0,0,0);
 		if(glfwGetKey(window,cam_trans_right))  position += vec3( 1, 0, 0);
 		if(glfwGetKey(window,cam_trans_left))   position += vec3(-1, 0, 0);
@@ -54,16 +56,15 @@ public:
 		if(glfwGetKey(window,cam_trans_back))	position += vec3( 0, 0, 1);
 		if(glfwGetKey(window,cam_trans_forward))position += vec3( 0, 0,-1);
 
+		//rotations (pan,tilt,roll)
 		vec3 orientation = vec3(0,0,0);
-		if(glfwGetKey(window,cam_rotate_left)) orientation += vec3( 1, 0, 0);
-		if(glfwGetKey(window,cam_rotate_right))orientation += vec3(-1, 0, 0);
-		if(glfwGetKey(window,cam_rotate_up))   orientation += vec3( 0, 1, 0);
-		if(glfwGetKey(window,cam_rotate_down)) orientation += vec3( 0,-1, 0);
-		if(glfwGetKey(window,cam_rotate_cw))   orientation += vec3( 0, 0, 1);
-		if(glfwGetKey(window,cam_rotate_ccw))  orientation += vec3( 0, 0,-1);
+		if(glfwGetKey(window,cam_rotate_down)) orientation += vec3( 0.1, 0, 0);
+		if(glfwGetKey(window,cam_rotate_up))   orientation += vec3(-0.1, 0, 0);
+		if(glfwGetKey(window,cam_rotate_right))orientation += vec3( 0, 0.1, 0);
+		if(glfwGetKey(window,cam_rotate_left)) orientation += vec3( 0,-0.1, 0);
+		if(glfwGetKey(window,cam_rotate_ccw))  orientation += vec3( 0, 0, 0.1);
+		if(glfwGetKey(window,cam_rotate_cw))   orientation += vec3( 0, 0,-0.1);
 
-		return MoveCameraCommand(position,
-								 vec3(glm::normalize(vec3(orientation.y,orientation.z,-orientation.x))),
-								 glm::length(orientation));
+		return MoveCameraCommand(position,orientation);
 	}
 };

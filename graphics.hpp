@@ -9,7 +9,7 @@ public:
 	Graphics(GLFWwindow* w,SimpleShader s,Camera c,Input in)
 		:window(w),simple(s),camera(c),input(in){}
 	void fixedTick(){
-		input.moveCameraInput().execute(camera);
+		input.moveCameraInput().execute(camera.transform);
 		simple.setCamera(camera);
 	}
 	void freeStep(){

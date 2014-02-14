@@ -20,8 +20,8 @@ HEADERS += \
 	simple.hpp \
 	camera.hpp \
 	input.hpp \
-    transform.h \
-    graphics.h
+    transform.hpp \
+    graphics.hpp
 
 OTHER_FILES += \
 	simple.frag \
