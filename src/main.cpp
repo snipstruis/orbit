@@ -16,8 +16,7 @@ using namespace std;
 using namespace glm;
 
 // paths relative to executable
-const string shader_path = "../Orbit";
-const string obj_path    = "../Orbit";
+const string shader_path = "./shaders";
 
 #include "utils.hpp"
 #include "uniform.hpp"

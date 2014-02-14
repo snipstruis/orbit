@@ -7,23 +7,21 @@ QMAKE_CXXFLAGS = -std=c++11
 
 LIBS += -lglfw -lGL -lGLEW -lm
 
-INCLUDEPATH += ../matrix/
-
-SOURCES += main.cpp
+SOURCES += src/main.cpp
 
 HEADERS += \
-	glfwcallbacks.hpp \
-	glfwadapter.hpp \
-	utils.hpp \
-	uniform.hpp \
-	shader.hpp \
-	simple.hpp \
-	camera.hpp \
-	input.hpp \
-    transform.hpp \
-    graphics.hpp
+	src/glfwcallbacks.hpp \
+	src/glfwadapter.hpp \
+	src/tils.hpp \
+	src/niform.hpp \
+	src/shader.hpp \
+	src/simple.hpp \
+	src/camera.hpp \
+	src/input.hpp \
+	src/transform.hpp \
+	src/graphics.hpp
 
 OTHER_FILES += \
-	simple.frag \
-	simple.vert
+	shaders/simple.frag \
+	shaders/simple.vert
 
