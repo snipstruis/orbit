@@ -1,5 +1,8 @@
 #pragma once
 
+#include "json.hpp"
+#include "utils.hpp"
+#include "glfwadapter.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
@@ -13,10 +16,36 @@ public:
 	quat orientation;
 	vec3 position;
 public:
-	Transform():parent(nullptr),scale(vec3(1.f)),orientation(quat()),position(vec3(0.f)){}
-	Transform(shared_ptr<Transform> t):parent(t),scale(vec3(1.f)),orientation(quat()),position(vec3(0.f)){}
-	Transform(vec3 startpos) :parent(nullptr),scale(vec3(1.f)),origin(vec3(0.f)),orientation(quat()),position(startpos){}
+	Transform(shared_ptr<Transform> t = nullptr)
+		:parent      (t),
+		 origin      (vec3(0.f)),
+		 scale       (vec3(1.f)),
+		 orientation (quat()),
+		 position    (vec3(0.f)){}
+	Transform(vec3 startpos)
+		:parent      (nullptr),
+		 origin      (vec3(0.f)),
+		 scale       (vec3(1.f)),
+		 orientation (quat()),
+		 position    (startpos){}
+	Transform(Json::Value transform)
+		:parent      (nullptr),
+		 origin      (loadVec3(transform,"origin")),
+		 scale       (loadVec3(transform,"scale")),
+		 orientation (loadQuat(transform,"orientation")),
+		 position    (loadVec3(transform,"position")){}
 public:
+	void print(){
+		cout<<  "origin.....: ";
+		printVec3(origin);
+		cout<<"\nscale......: ";
+		printVec3(scale);
+		cout<<"\norientation: ";
+		printQuat(orientation);
+		cout<<"\nposition...: ";
+		printVec3(position);
+		cout<<endl;
+	}
 	void translate(vec3 pos){
 		position += pos;
 	}
@@ -27,7 +56,7 @@ public:
 		return glm::translate(mat4(),position)
 			 * mat4_cast(orientation)
 			 * glm::scale(mat4(),scale)
-			 * glm::translate(mat4(),origin)
-			 * (parent?parent->getMatrix():mat4());
+			 * glm::translate(mat4(),origin);
+			// * (parent?parent->getMatrix():mat4());
 	}
 };

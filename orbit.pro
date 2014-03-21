@@ -5,7 +5,7 @@ CONFIG -= qt
 
 QMAKE_CXXFLAGS = -std=c++11
 
-LIBS += -lglfw -lGL -lGLEW -lm
+LIBS += -lglfw -lGL -lGLEW -lm -ljsoncpp
 
 SOURCES += src/main.cpp
 
@@ -19,9 +19,14 @@ HEADERS += \
 	src/camera.hpp \
 	src/input.hpp \
 	src/transform.hpp \
-	src/graphics.hpp
+	src/graphics.hpp \
+	src/json.hpp \
+    src/utils.hpp
 
 OTHER_FILES += \
 	shaders/simple.frag \
-	shaders/simple.vert
+	shaders/simple.vert \
+    meshes/cube.json \
+    meshes/floor.json \
+    scenes/scene.json
 

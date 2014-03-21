@@ -1,0 +1,62 @@
+{
+
+    "meshes":[{
+        "meshfile" : "floor.json",
+        "color"    : [ 0.078, 0.118, 0.078 ],
+        "transform":{
+            "id"         : 0,
+            "parent"     : null,
+            "origin"     : [0,0,0],
+            "scale"      : [1,1,1],
+            "orientation": [0,0,0,1],
+            "position"   : [0,0,-0.1]
+        }
+    },{
+        "meshfile" : "cube.json",
+        "color"    : [ 0.196, 0.000, 0.500 ],
+        "transform":{
+            "id"         : 1,
+            "parent"     : null,
+            "origin"     : [0,0,0],
+            "scale"      : [1,1,1],
+            "orientation": [0,0,0,1],
+            "position"   : [-5,0,1]
+        }
+    },{
+        "meshfile" : "cube.json",
+        "color"    : [0.196, 0.706, 0.500],
+        "transform":{
+            "id"         : 2,
+            "parent"     : null,
+            "origin"     : [0,0,0],
+            "scale"      : [1,1,1],
+            "orientation": [0,0,0,1],
+            "position"   : [0,0,1]
+        }
+    },{
+        "meshfile" : "cube.json",
+        "color"    : [ 0.196, 0.078, 0.314 ],
+        "transform":{
+            "id"         : 3,
+            "parent"     : null,
+            "origin"     : [0,0,0],
+            "scale"      : [1,1,1],
+            "orientation": [0,0,0,1],
+            "position"   : [5,0,1]
+        }
+    }],
+
+    "lights":[{
+        "intensity"    : 0.8,
+        "falloff start": 10,
+        "falloff end"  : 25,
+        "transform":{
+            "id"         : 5,
+            "parent"     : null,
+            "origin"     : [0,0,0],
+            "scale"      : [1,1,1],
+            "orientation": [0,0,0,1],
+            "position"   : [10,10,10]
+        }
+    }]
+}

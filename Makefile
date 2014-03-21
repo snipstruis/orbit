@@ -18,7 +18,7 @@ CXXFLAGS      = -std=c++11 -g -Wall -W -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/qt/mkspecs/linux-clang -I.
 LINK          = clang++
 LFLAGS        = -Wl,-O1,--sort-common,--as-needed,-z,relro -ccc-gcc-name g++
-LIBS          = $(SUBLIBS) -lglfw -lGL -lGLEW -lm 
+LIBS          = $(SUBLIBS) -lglfw -lGL -lGLEW -lm -ljsoncpp 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/qt/bin/qmake
@@ -369,6 +369,7 @@ main.o: src/main.cpp src/utils.hpp \
 		src/glfwcallbacks.hpp \
 		src/glfwadapter.hpp \
 		src/transform.hpp \
+		src/json.hpp \
 		src/input.hpp \
 		src/camera.hpp \
 		src/shader.hpp \

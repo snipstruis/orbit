@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/gtc/quaternion.hpp>
 #include <GL/glew.h>
 #include <fstream>
 #include <string>
@@ -20,4 +21,13 @@ string readFile(string filename){
 	throw(errno);
 }
 
+void printQuat(quat q){
+	cout<<q[0]<<", "
+		<<q[1]<<", "
+		<<q[2]<<", "
+		<<q[3];
+}
 
+void printVec3(vec3 m){
+	cout<<m[0]<<", "<<m[1]<<", "<<m[2];
+}

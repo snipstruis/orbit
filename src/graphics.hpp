@@ -1,6 +1,7 @@
 #pragma once
 
 #include "input.hpp"
+#include "simple.hpp"
 
 class Graphics{
 	SimpleShader  simple;

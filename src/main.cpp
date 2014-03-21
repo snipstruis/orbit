@@ -16,7 +16,9 @@ using namespace std;
 using namespace glm;
 
 // paths relative to executable
-const string shader_path = "./shaders";
+const string shader_path = "shaders/";
+const string scene_path  = "scenes/";
+const string mesh_path   = "meshes/";
 
 #include "utils.hpp"
 #include "uniform.hpp"
@@ -125,7 +127,7 @@ int main(){
 		<<"shift: move up       | left:  pan left"<<endl
 		<<"ctrl:  move down     | right: pan right"<<endl;
 
-
+/*
 	vector<SimpleObject> objects;
 
 	// way to create objects until I implement an OBJ-file loader
@@ -216,7 +218,7 @@ int main(){
 			}),Transform(vec3(5,0,1)),
 			   vec3(50/255.f,20/255.f,80/255.f)
 		)
-	);
+	);*/
 
 	// create camera
 	Transform camera_transform;
@@ -224,7 +226,9 @@ int main(){
 	camera_transform.rotate(-90.f,vec3(1.f,0.f,0.f)); // rotate so you look along +y axis
 	Camera camera(camera_transform,60.f,screensize.x/float(screensize.y));
 
-	SimpleShader simple = SimpleShader( SimpleScene(objects) );
+	// load scene
+	SimpleShader simple = SimpleShader( readFile(scene_path + "scene.json") );
+	//SimpleShader simple = SimpleShader(objects);
 
 	// connect components to taskmanager and run it
 	Input input(window);
