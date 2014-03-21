@@ -21,7 +21,8 @@ HEADERS += \
 	src/transform.hpp \
 	src/graphics.hpp \
 	src/json.hpp \
-    src/utils.hpp
+    src/utils.hpp \
+    src/scheduler.hpp
 
 OTHER_FILES += \
 	shaders/simple.frag \

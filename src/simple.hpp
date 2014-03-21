@@ -5,68 +5,78 @@
 #include <istream>
 #include <vector>
 
-class SimpleObject{
-	GLuint vao;
-	GLuint vbo;
-	GLuint ibo;
-public:
-	Transform transform;
-	vec3   color;
-private:
-	unsigned short size;
-public:
-	SimpleObject(vector<GLfloat>  vertices,
-				 vector<GLushort> indices,
-				 Transform trans,vec3 _color)
-			:transform(trans),
-			 color(_color),
-			 size(indices.size()){
-		upload(vertices,indices);
-	}
-	SimpleObject(Json::Value object)
-			:transform(object["transform"]),
-			 color(loadVec3(object,"color")){
-		string meshname = mesh_path+loadString(object,"meshfile");
-		cout<<"loading mesh: "<<meshname<<endl;
+struct Mesh{
+	Mesh(string meshfile){
+		cout<<"loading mesh: "<<meshfile<<endl;
 
 		Json::Reader reader;
 		Json::Value  mesh;
 
-		if(!reader.parse(readFile(meshname),mesh)) throw BadJson(reader);
+		if(!reader.parse(readFile(meshfile),mesh)) throw BadJson(reader);
 
-		auto vertices = loadFloatArray(mesh,"vertices");
-		auto indices  = loadU16Array(mesh,"indices");
-
-		size = indices.size();
-
-		upload( vertices, indices );
+		vertices = loadFloatArray(mesh,"vertices");
+		indices  = loadU16Array(mesh,"indices");
 	}
-	void draw() const{
-		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES,size,GL_UNSIGNED_SHORT,(void*)0);
+	vector<GLfloat>  vertices;
+	vector<GLushort> indices;
+};
+
+class VertexArray{
+	GLuint make_vbo(vector<GLfloat> vertices){
+		GLuint ret;
+		glGenBuffers(1, &ret);
+		glBindBuffer(GL_ARRAY_BUFFER, ret);
+		glBufferData(GL_ARRAY_BUFFER,
+					 vertices.size() * sizeof(GLfloat),
+					 &vertices[0],
+					 GL_STATIC_DRAW);
+		return ret;
 	}
-private:
-	// ONLY USE ONCE -- will leak video memory when used more than once per instance
-	void upload(vector<GLfloat> vertices, vector<GLushort> indices){
-
-		cout<<"uploading "<<vertices.size()<<" vertices"<<endl;
-		cout<<"      and "<<indices.size() <<" indices"<<endl;
-
-		glGenBuffers(1, &vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), &indices[0], GL_STATIC_DRAW);
-
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
+	GLuint make_ibo(vector<GLushort> indices){
+		GLuint ret;
+		glGenBuffers(1, &ret);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ret);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+					 indices.size() * sizeof(GLushort),
+					 &indices[0], GL_STATIC_DRAW);
+		return ret;
+	}
+	GLuint make_vao(){
+		GLuint ret;
+		glGenVertexArrays(1, &ret);
+		glBindVertexArray(ret);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		return ret;
+	}
+public:
+	const unsigned short nrOfIndices;
+	const GLuint vbo;
+	const GLuint ibo;
+	const GLuint vao;
+	VertexArray(Mesh mesh)
+		:nrOfIndices(mesh.indices.size()),
+		 vbo(make_vbo(mesh.vertices)),
+		 ibo(make_ibo(mesh.indices)),
+		 vao(make_vao()){}
+};
+
+class SimpleObject{
+	VertexArray vertexArray;
+public:
+	Transform transform;
+	vec3   color;
+public:
+	SimpleObject(Json::Value object)
+		:transform(object["transform"]),
+		 color(loadVec3(object,"color")),
+		 vertexArray(mesh_path+loadString(object,"meshfile")){}
+	void draw() const{
+		glBindVertexArray(vertexArray.vao);
+		glDrawElements(GL_TRIANGLES,vertexArray.nrOfIndices,GL_UNSIGNED_SHORT,(void*)0);
 	}
 };
 

@@ -35,17 +35,6 @@ public:
 		 orientation (loadQuat(transform,"orientation")),
 		 position    (loadVec3(transform,"position")){}
 public:
-	void print(){
-		cout<<  "origin.....: ";
-		printVec3(origin);
-		cout<<"\nscale......: ";
-		printVec3(scale);
-		cout<<"\norientation: ";
-		printQuat(orientation);
-		cout<<"\nposition...: ";
-		printVec3(position);
-		cout<<endl;
-	}
 	void translate(vec3 pos){
 		position += pos;
 	}

@@ -374,7 +374,8 @@ main.o: src/main.cpp src/utils.hpp \
 		src/camera.hpp \
 		src/shader.hpp \
 		src/simple.hpp \
-		src/graphics.hpp
+		src/graphics.hpp \
+		src/scheduler.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 ####### Install
