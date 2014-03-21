@@ -125,10 +125,11 @@ int main(){
 		<<"shift: move up       | left:  pan left"<<endl
 		<<"ctrl:  move down     | right: pan right"<<endl;
 
-	SimpleShader simple;
+
+	vector<SimpleObject> objects;
 
 	// way to create objects until I implement an OBJ-file loader
-	simple.objects.push_back(
+	objects.push_back(
 		SimpleObject( // ground box
 			vector<GLfloat>({
 				  -10.0f,	-10.0f,	 0.1f,
@@ -150,7 +151,7 @@ int main(){
 			vec3(20/255.f,30/255.f,20/255.f)
 		)
 	);
-	simple.objects.push_back(
+	objects.push_back(
 		SimpleObject( // left box (dark blue)
 			vector<GLfloat>({
 				  -1.0f,	-1.0f,	 1.0f,
@@ -172,7 +173,7 @@ int main(){
 			   vec3(50/255.f,00/255.f,180/255.f)
 		)
 	);
-	simple.objects.push_back(
+	objects.push_back(
 		SimpleObject( // middle box (pale blue)
 			vector<GLfloat>({
 				  -1.0f,	-1.0f,	 1.0f,
@@ -194,7 +195,7 @@ int main(){
 			   vec3(50/255.f,95/255.f,180/255.f)
 		)
 	);
-	simple.objects.push_back(
+	objects.push_back(
 		SimpleObject( // right box (purple)
 			vector<GLfloat>({
 				  -1.0f,	-1.0f,	 1.0f,
@@ -222,6 +223,8 @@ int main(){
 	camera_transform.origin = vec3(0,10.f,-2.8f);
 	camera_transform.rotate(-90.f,vec3(1.f,0.f,0.f)); // rotate so you look along +y axis
 	Camera camera(camera_transform,60.f,screensize.x/float(screensize.y));
+
+	SimpleShader simple = SimpleShader( SimpleScene(objects) );
 
 	// connect components to taskmanager and run it
 	Input input(window);

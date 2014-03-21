@@ -2,6 +2,7 @@
 
 #include "shader.hpp"
 #include <istream>
+#include <vector>
 
 class SimpleObject{
 	GLuint vao;
@@ -42,27 +43,28 @@ public:
 	}
 };
 
+class SimpleScene{
+public:
+	SimpleScene(vector<SimpleObject> o)
+		: objects(o){}
+	vector<SimpleObject> objects;
+};
+
 class SimpleShader:public Shader{
 	Uniform<vec3> color;
+	SimpleScene activeScene;
 public:
-	vector<SimpleObject> objects;
-public:
-	SimpleShader():
-		Shader(make_shader(readFile(shader_path+"/simple.vert"),
-						   readFile(shader_path+"/simple.frag"))),
-			   color(Uniform<vec3>(program,"color") ){}
-	void setCamera(Camera cam){
-		view = cam.transform.getMatrix();
-		projection = cam.getProjection();
+	SimpleShader(SimpleScene s)
+		:Shader(make_shader(readFile(shader_path+"/simple.vert"),
+							readFile(shader_path+"/simple.frag"))),
+		 color(Uniform<vec3>(program,"color")),
+		 activeScene(s){}
+	void setCamera(Camera c){
+		view	   = c.transform.getMatrix();
+		projection = c.getProjection();
 	}
 	void draw(){
-		// rotate objects for demonstration
-		objects.at(1).transform.rotate(0.1f,vec3(0,0,1));
-		objects.at(2).transform.rotate(0.2f,vec3(0,0,1));
-		objects.at(3).transform.rotate(0.4f,vec3(0,0,1));
-
-		// draw objects
-		for(const SimpleObject &o:objects){
+		for(const SimpleObject &o : activeScene.objects){
 			color=o.color;
 			model=o.transform.getMatrix();
 			o.draw();
