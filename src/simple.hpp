@@ -5,67 +5,11 @@
 #include <istream>
 #include <vector>
 
-struct Mesh{
-	Mesh(string meshfile){
-		cout<<"loading mesh: "<<meshfile<<endl;
-
-		Json::Reader reader;
-		Json::Value  mesh;
-
-		if(!reader.parse(readFile(meshfile),mesh)) throw BadJson(reader);
-
-		vertices = loadFloatArray(mesh,"vertices");
-		indices  = loadU16Array(mesh,"indices");
-	}
-	vector<GLfloat>  vertices;
-	vector<GLushort> indices;
-};
-
-class VertexArray{
-	GLuint make_vbo(vector<GLfloat> vertices){
-		GLuint ret;
-		glGenBuffers(1, &ret);
-		glBindBuffer(GL_ARRAY_BUFFER, ret);
-		glBufferData(GL_ARRAY_BUFFER,
-					 vertices.size() * sizeof(GLfloat),
-					 &vertices[0],
-					 GL_STATIC_DRAW);
-		return ret;
-	}
-	GLuint make_ibo(vector<GLushort> indices){
-		GLuint ret;
-		glGenBuffers(1, &ret);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ret);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-					 indices.size() * sizeof(GLushort),
-					 &indices[0], GL_STATIC_DRAW);
-		return ret;
-	}
-	GLuint make_vao(){
-		GLuint ret;
-		glGenVertexArrays(1, &ret);
-		glBindVertexArray(ret);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		return ret;
-	}
-public:
-	const unsigned short nrOfIndices;
-	const GLuint vbo;
-	const GLuint ibo;
-	const GLuint vao;
-	VertexArray(Mesh mesh)
-		:nrOfIndices(mesh.indices.size()),
-		 vbo(make_vbo(mesh.vertices)),
-		 ibo(make_ibo(mesh.indices)),
-		 vao(make_vao()){}
-};
+#include "mesh.hpp"
+#include "vertexarrayhandle.hpp"
 
 class SimpleObject{
-	VertexArray vertexArray;
+	VertexArrayHandle vertexArray;
 public:
 	Transform transform;
 	vec3   color;

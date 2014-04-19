@@ -1,5 +1,9 @@
 #pragma once
 
+#include "graphics.hpp"
+#include<chrono>
+using namespace std;
+
 class Scheduler{
 	using Clock = chrono::high_resolution_clock;
 	bool running;

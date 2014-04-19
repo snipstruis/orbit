@@ -22,7 +22,9 @@ HEADERS += \
 	src/graphics.hpp \
 	src/json.hpp \
     src/utils.hpp \
-    src/scheduler.hpp
+    src/scheduler.hpp \
+    src/vertexarrayhandle.hpp \
+    src/mesh.hpp
 
 OTHER_FILES += \
 	shaders/simple.frag \
