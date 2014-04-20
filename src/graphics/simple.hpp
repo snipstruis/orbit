@@ -21,9 +21,9 @@ public:
 	vec3   color;
 public:
 	SimpleObject(Json::Value object)
-		:transform(object["transform"]),
-		 color(loadVec3(object,"color")),
-		 vertexArray(mesh_path+loadString(object,"meshfile")){}
+		:vertexArray(mesh_path+loadString(object,"meshfile")),
+		 transform(object["transform"]),
+		 color(loadVec3(object,"color")){}
 	void draw() const{
 		glBindVertexArray(vertexArray.vao);
 		glDrawElements(GL_TRIANGLES,vertexArray.nrOfIndices,GL_UNSIGNED_SHORT,(void*)0);

@@ -1,5 +1,11 @@
 #pragma once
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+using glm::dvec2;
+using glm::ivec2;
+
 dvec2 getCursor(GLFWwindow* window){
 	dvec2 t;
 	glfwGetCursorPos(window,&t.x,&t.y);

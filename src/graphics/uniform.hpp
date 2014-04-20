@@ -1,7 +1,12 @@
 #pragma once
 
-static void uniform_set(GLint loc,int   data){glUniform1i(loc,data);}
-static void uniform_set(GLint loc,float data){glUniform1f(loc,data);}
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <string>
+using glm::mat4;
+using glm::vec3;
+
 static void uniform_set(GLint loc,mat4  data){
 	float array[16] = {
 		data[0][0],data[0][1],data[0][2],data[0][3],

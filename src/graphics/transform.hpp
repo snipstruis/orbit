@@ -3,10 +3,17 @@
 #include "utils/json.hpp"
 #include "utils/utils.hpp"
 #include "utils/glfwadapter.hpp"
+
+#include <memory>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/quaternion.hpp>
+
+using glm::vec3;
+using glm::quat;
+using glm::mat4;
 
 class Transform{
 public:
@@ -43,7 +50,7 @@ public:
 	}
 	mat4 getMatrix()const{
 		return glm::translate(mat4(),position)
-			 * mat4_cast(orientation)
+			 * glm::mat4_cast(orientation)
 			 * glm::scale(mat4(),scale)
 			 * glm::translate(mat4(),origin);
 			// * (parent?parent->getMatrix():mat4());

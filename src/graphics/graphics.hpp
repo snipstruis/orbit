@@ -4,8 +4,8 @@
 #include "simple.hpp"
 
 class Graphics{
-	SimpleShader  simple;
 	GLFWwindow*   window;
+	SimpleShader  simple;
 	Camera        camera;
 	Input		  input;
 public:

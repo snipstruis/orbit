@@ -4,10 +4,12 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 #include <vector>
+
 using namespace std;
 
-// ref-counted handle to indexed vertex array in video memory
+// ref-counted handle to indexed vertex array buffers in video memory
 
 class VertexArrayHandle{
 	// allocates vertex buffer object in video memory
@@ -54,7 +56,8 @@ public:
 		 vbo(make_vbo(mesh.vertices)),
 		 ibo(make_ibo(mesh.indices)),
 		 vao(make_vao()),
-		 refcount(new unsigned(1)){}
+		 refcount(new unsigned(1)){
+	}
 	VertexArrayHandle(const VertexArrayHandle& other)
 		:nrOfIndices(other.nrOfIndices),
 		 vbo(other.vbo),

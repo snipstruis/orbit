@@ -1,6 +1,5 @@
 #pragma once
 
-#include <glm/gtc/quaternion.hpp>
 #include <GL/glew.h>
 #include <fstream>
 #include <string>

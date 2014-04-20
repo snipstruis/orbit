@@ -18,7 +18,7 @@ HEADERS += \
 INCLUDEPATH += src/
 
 OTHER_FILES += \
-	shaders/*
-	meshes/*
+	shaders/* \
+	meshes/* \
 	scenes/*
 

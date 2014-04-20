@@ -1,7 +1,14 @@
 #pragma once
 
 #include "graphics/camera.hpp"
+#include "graphics/transform.hpp"
+#include "utils/glfwadapter.hpp"
 #include <glm/glm.hpp>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+using glm::dvec2;
+using glm::vec3;
 
 template<class T>
 class Command{
@@ -40,7 +47,7 @@ class Input{
 		cam_rotate_ccw   = GLFW_KEY_Q;
 public:
 	Input(GLFWwindow* win):window(win){
-		setCursor(window,dvec2(getScreenSize(window)/2));
+		setCursor(window,dvec2( getScreenSize(window) /2));
 	}
 	void poll(){
 		glfwPollEvents();
