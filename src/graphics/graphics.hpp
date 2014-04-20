@@ -1,6 +1,6 @@
 #pragma once
 
-#include "input.hpp"
+#include "input/input.hpp"
 #include "simple.hpp"
 
 class Graphics{

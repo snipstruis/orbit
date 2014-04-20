@@ -1,8 +1,8 @@
 #pragma once
 
-#include "json.hpp"
-#include "utils.hpp"
-#include "glfwadapter.hpp"
+#include "utils/json.hpp"
+#include "utils/utils.hpp"
+#include "utils/glfwadapter.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>

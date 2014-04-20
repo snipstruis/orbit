@@ -66,8 +66,8 @@ public:
 	static GLuint use(GLuint prog){glUseProgram(prog); return prog;}
 	Shader(GLuint prog):
 		program(use(prog)),
-		projection(Uniform<mat4>(prog,"projection")),
 		model(Uniform<mat4>(prog,"model")),
+		projection(Uniform<mat4>(prog,"projection")),
 		view(Uniform<mat4>(prog,"view")){}
 	virtual ~Shader(){}
 };

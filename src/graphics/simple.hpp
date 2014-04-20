@@ -1,12 +1,18 @@
 #pragma once
 
 #include "shader.hpp"
-#include "json.hpp"
-#include <istream>
-#include <vector>
-
+#include "transform.hpp"
+#include "utils/json.hpp"
 #include "mesh.hpp"
 #include "vertexarrayhandle.hpp"
+#include "uniform.hpp"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+#include <istream>
+#include <vector>
+using glm::vec3;
 
 class SimpleObject{
 	VertexArrayHandle vertexArray;

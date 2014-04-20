@@ -20,18 +20,18 @@ const string shader_path = "shaders/";
 const string scene_path  = "scenes/";
 const string mesh_path   = "meshes/";
 
-#include "utils.hpp"
-#include "uniform.hpp"
-#include "glfwcallbacks.hpp"
-#include "glfwadapter.hpp"
+#include "utils/utils.hpp"
+#include "graphics/uniform.hpp"
+#include "input/glfwcallbacks.hpp"
+#include "utils/glfwadapter.hpp"
 
-#include "transform.hpp"
-#include "input.hpp"
-#include "shader.hpp"
-#include "simple.hpp"
-#include "camera.hpp"
-#include "graphics.hpp"
-#include "scheduler.hpp"
+#include "graphics/transform.hpp"
+#include "input/input.hpp"
+#include "graphics/shader.hpp"
+#include "graphics/simple.hpp"
+#include "graphics/camera.hpp"
+#include "graphics/graphics.hpp"
+#include "core/scheduler.hpp"
 
 GLFWwindow* createWindow(ivec2 windowsize){
 	GLFWwindow* window;

@@ -2,7 +2,7 @@
 
 #include<vector>
 #include<iostream>
-#include "json.hpp"
+#include "utils/json.hpp"
 using namespace std;
 
 struct Mesh{

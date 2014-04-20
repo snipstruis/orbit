@@ -15,7 +15,7 @@ CXX           = clang++
 DEFINES       = 
 CFLAGS        = -pipe -g -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -std=c++11 -g -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/qt/mkspecs/linux-clang -I.
+INCPATH       = -I/usr/lib/qt/mkspecs/linux-clang -I. -Isrc
 LINK          = clang++
 LFLAGS        = -Wl,-O1,--sort-common,--as-needed,-z,relro -ccc-gcc-name g++
 LIBS          = $(SUBLIBS) -lglfw -lGL -lGLEW -lm -ljsoncpp 
@@ -358,20 +358,20 @@ compiler_clean:
 
 ####### Compile
 
-main.o: src/main.cpp src/utils.hpp \
-		src/uniform.hpp \
-		src/glfwcallbacks.hpp \
-		src/glfwadapter.hpp \
-		src/transform.hpp \
-		src/json.hpp \
-		src/input.hpp \
-		src/camera.hpp \
-		src/shader.hpp \
-		src/simple.hpp \
-		src/mesh.hpp \
-		src/vertexarrayhandle.hpp \
-		src/graphics.hpp \
-		src/scheduler.hpp
+main.o: src/main.cpp src/utils/utils.hpp \
+		src/graphics/uniform.hpp \
+		src/input/glfwcallbacks.hpp \
+		src/utils/glfwadapter.hpp \
+		src/graphics/transform.hpp \
+		src/utils/json.hpp \
+		src/input/input.hpp \
+		src/graphics/camera.hpp \
+		src/graphics/shader.hpp \
+		src/graphics/simple.hpp \
+		src/graphics/mesh.hpp \
+		src/graphics/vertexarrayhandle.hpp \
+		src/graphics/graphics.hpp \
+		src/core/scheduler.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 ####### Install

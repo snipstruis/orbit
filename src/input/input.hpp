@@ -1,6 +1,6 @@
 #pragma once
 
-#include "camera.hpp"
+#include "graphics/camera.hpp"
 #include <glm/glm.hpp>
 
 template<class T>
