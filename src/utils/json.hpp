@@ -5,6 +5,8 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/reader.h>
 
+#include <fstream>
+
 #include <stdexcept>
 using namespace std;
 

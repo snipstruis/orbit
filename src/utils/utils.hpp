@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <cerrno>
+#include <iostream>
 using namespace std;
 
 string readFile(string filename){
@@ -17,5 +18,6 @@ string readFile(string filename){
 		in.close();
 		return(contents);
 	}
+	cout<< "error while opening " << filename <<endl;
 	throw(errno);
 }

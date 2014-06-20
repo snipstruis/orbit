@@ -16,9 +16,9 @@ using namespace std;
 using namespace glm;
 
 // paths relative to executable
-const string shader_path = "shaders/";
-const string scene_path  = "scenes/";
-const string mesh_path   = "meshes/";
+const string shader_path = "data/shaders/";
+const string scene_path  = "data/scenes/";
+const string mesh_path   = "data/meshes/";
 
 #include "utils/utils.hpp"
 #include "graphics/uniform.hpp"
@@ -53,6 +53,8 @@ GLFWwindow* createWindow(ivec2 windowsize){
 }
 
 int main(){
+	cout << "HAI" << endl;
+
 	if (!glfwInit()) exit(EXIT_FAILURE);
 	else cout<<"GLFW: succesfully initialized"<<endl;
 

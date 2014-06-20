@@ -56,3 +56,9 @@ public:
 			// * (parent?parent->getMatrix():mat4());
 	}
 };
+
+#include "utils/idlut.hpp"
+
+class TransformTree{
+
+};
